@@ -15,11 +15,14 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'shengrongoa',
+    //'database'        => 'shengrongoa',
+    'database'        => 'myshengrongzhua',
     // 用户名
-    'username'        => 'root',
+    //'username'        => 'root',
+    'username'        => 'myshengrongzhua',
     // 密码
-    'password'        => 'root',
+    //'password'        => 'root',
+    'password'        => 'saw7vMvsc2rlsWcuof5',
     // 端口
     'hostport'        => '',
     // 连接dsn
@@ -29,7 +32,7 @@ return [
     // 数据库编码默认采用utf8
     'charset'         => 'utf8',
     // 数据库表前缀
-    'prefix'          => 'dp',
+    'prefix'          => 'dp_',
     // 数据库调试模式
     'debug'           => true,
     // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)

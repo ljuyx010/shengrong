@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>晟荣装饰办公OA</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="alternate icon" type="image/png" href="__PUBLIC__/i/favicon.png">
+  <link rel="stylesheet" href="__PUBLIC__/css/amazeui.min.css"/>
+  <script src="__PUBLIC__/js/jquery.min.js"></script>
+  <style>
+    .header {
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="am-g">
+    <h1>登录</h1>
+    <p>晟荣装饰办公OA系统<br />技术支持：<a href="http://www.dpwl.net" target="_blank">湖北大鹏网络</a></p>
+  </div>
+  <hr />
+</div>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <br>
+    <form method="post" method="{:url('login/check')}" class="am-form">
+      <label for="email">账号:</label>
+      <input type="text" name="account" id="text" value="">
+      <br>
+      <label for="password">密码:</label>
+      <input type="password" name="password" id="password" value="">
+      <br>
+      <label for="password">验证码:</label>
+      <div class="am-cf">      
+      <input type="text" name="code" class="am-fl" style="width:50%;" id="code" value="">
+      <img id="verfy" class="am-fr" style="height: 37px;" onclick="refresh()" src="{:captcha_src()}">
+      </div>
+      <br>
+      <label for="remember-me">
+        <input name="remember" id="remember-me" type="checkbox" value="1">
+        记住7天
+      </label>
+      <br />
+      <div class="am-cf">
+        <input type="submit" name="" value="登 录" class="am-btn am-btn-primary  am-center">
+      </div>
+    </form>
+    <hr>
+    <p>Copyright © 2018 <a href="http://www.dpwl.net" target="_blank">Dpwl</a>版权所有.</p>
+  </div>
+</div>
+<script>
+function refresh(){
+  var ts= Date.parse(new Date())/1000;
+  $('#verfy').attr('src','/captcha?rand='+ts);
+}
+</script>
+</body>
+</html>

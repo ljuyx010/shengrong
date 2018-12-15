@@ -1,8 +1,8 @@
 /*
 MySQL Backup
-Source Server Version: 5.5.53
-Source Database: shengrongoa
-Date: 2018/12/14 23:10:41
+Source Server Version: 5.6.14
+Source Database: myshengrongzhua
+Date: 2018/12/15 17:48:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -17,8 +17,9 @@ CREATE TABLE `dp_admin` (
   `password` varchar(32) NOT NULL COMMENT '密码',
   `name` varchar(10) NOT NULL COMMENT '姓名',
   `type` int(1) NOT NULL COMMENT '用户组0员工1管理员',
+  `zt` int(1) NOT NULL COMMENT '0在职1离职',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `dp_ccon`
@@ -76,7 +77,7 @@ CREATE TABLE `dp_project` (
   `dz` int(10) NOT NULL COMMENT '队长',
   `Participant` varchar(255) NOT NULL COMMENT '参与者',
   `addtime` int(10) NOT NULL COMMENT '添加日期',
-  `zt` int(1) NOT NULL COMMENT '0进行中1已完成2异常',
+  `zt` int(1) NOT NULL DEFAULT '0' COMMENT '0进行中1已完成2异常',
   `uptime` int(10) NOT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -84,3 +85,4 @@ CREATE TABLE `dp_project` (
 -- ----------------------------
 --  Records 
 -- ----------------------------
+INSERT INTO `dp_admin` VALUES ('1','dpwl','14e1b600b1fd579f47433b88e8d85291','大鹏网络','1','0');

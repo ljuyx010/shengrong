@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="__PUBLIC__/css/amazeui.min.css"/>
   <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
   <link rel="stylesheet" href="__PUBLIC__/css/diy.css">
+  <!--[if (gte IE 9)|!(IE)]><!-->
+  <script src="__PUBLIC__/js/jquery.min.js"></script>
+  <!--<![endif]-->
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -29,6 +32,7 @@
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="border-bottom"><a href="javascript:;"><span class="am-icon-smile-o"></span> {$Think.session.user.name} </a></li>
       <li class="border-bottom"><a href="{:url('user/modify')}"><span class="am-icon-pencil"></span> 修改密码 </a></li>
       <li class="border-bottom"><a href="{:url('login/logout')}"><span class="am-icon-sign-out"></span> 退出系统 </a></li>
 
