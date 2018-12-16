@@ -1,0 +1,127 @@
+{include file="public/head" /}
+<div class="am-cf admin-main">
+
+{include file="public/left" /}
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf">
+          <strong class="am-text-primary am-text-lg">客户管理</strong> /
+          <small>{$title}</small>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-12">
+            <div class="am-panel am-panel-secondary">
+              <div class="am-panel-hd">
+                <h3 class="am-panel-title">{if condition="$xm.title"}{$xm.title}{else /}{$title}{/if}</h3>
+              </div>
+              <div class="am-panel-bd">
+               <table class="am-table">
+                {if condition="!isset($xm.title)"}
+                <tr><td>名称</td><td><input type="text" name="title" class="layui-input title" placeholder="客户名称"></td></tr>{/if}
+                <tr><td>联系人</td><td><input type="text" name="lxr" class="layui-input lxr" placeholder="联系人名称" value="{$xm.lxr}"></td></td></tr>
+                <tr><td>联系方式</td><td><input type="text" name="lx" class="layui-input lx" placeholder="联系方式(电话，QQ，微信)" value="{$xm.lx}"></td></td></tr>
+                <tr><td>地址</td><td><input type="text" name="adr" class="layui-input adr" placeholder="客户地址" value="{$xm.adr}"></td></td></tr>
+                {if condition="$xm"}
+                <tr><td>创建人</td><td>{$xm.name}</td></tr>
+                <tr><td>创建日期</td><td>{$xm.addtime|date='Y/m/d'}</td></tr>
+                <tr><td>状态</td><td>
+                  <select name="zt" data-am-selected="{btnSize: 'sm'}">
+                    <option value="1" {if condition="$xm.zt==1"}selected{/if}>重点</option>
+                    <option value="2" {if condition="$xm.zt==2"}selected{/if}>已成交</option>
+                    <option value="0" {if condition="$xm.zt==0"}selected{/if}>公共</option>
+                  </select></td>
+                </tr>{if condition="$xm.zt==0"}
+                <tr><td>转移</td><td><input type="checkbox" name="zy" title="转到重点客户" value="zy" lay-skin="primary"> </td></tr>{/if}
+                {/if}
+                <tr>
+                  <td colspan="2">
+                    <textarea {if condition="$xm"}lay-verify="required"{/if} style="display: none;" name="content" id="content"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><button type="button" lay-filter="add" lay-submit class="am-btn am-btn-primary">提交保存</button></td>
+                </tr>
+               </table>
+              </div>
+            </div>
+            <ul class="am-comments-list am-comments-list-flip">
+              {volist name="list" id="v" key="k"}
+              <li class="am-comment {if condition='$k%2'}am-comment-flip{/if}">
+                <a href="#link-to-user-home">
+                  <img src="__PUBLIC__/i/face.png" alt="" class="am-comment-avatar" width="48" height="48"/>
+                </a>
+
+                <div class="am-comment-main">
+                  <header class="am-comment-hd">
+                    <div class="am-comment-meta">
+                      <a href="#link-to-user" class="am-comment-author">{$v.name}</a>
+                      更新于 <time datetime="{$v.time|date='Y-m-d H:i:s'}">{$v.time|date='Y-m-d H:i:s'}</time>
+                    </div>
+                  </header>
+
+                  <div class="am-comment-bd">
+                    {$v.content}
+                  </div>
+                </div>
+              </li>
+              {/volist}
+            </ul>
+        </div>
+      
+      </div>
+    </div>
+{js href="__PUBLIC__/layui/layui.js"}
+{css href="__PUBLIC__/layui/css/layui.css"}
+<script type="text/javascript">
+layui.use(['form','layer','layedit'], function(){
+  var form = layui.form,
+      layer = parent.layer === undefined ? layui.layer : top.layer,
+      layedit = layui.layedit,
+      $ = layui.jquery;
+
+  layedit.set({
+      uploadImage: {
+          url: "{:url('index/upload')}",
+          type: 'post'
+      }
+  });
+  var index=layedit.build('content'); //建立编辑器
+  //提交表单
+  form.on("submit(add)",function(data){  
+    //同步编辑器内容到textarea
+    layedit.sync(index);
+    $.post("{:url('customer/runadd')}",{
+        title:$(".title").val(),
+        lxr:$(".lxr").val(),
+        lx:$(".lx").val(),
+        adr:$(".adr").val(),
+        {if condition="$xm"}
+        zt: $("select[name=zt]:selected").val(),
+        zy: $("input[name=zy]:checked").val(),
+        cid: {$xm.id},  //项目id
+        {/if}
+        content : $("#content").val() //文章内容
+    },function(res){
+      if(res=='ok'){
+          layer.msg("更新成功！");
+          //刷新页面
+          location.reload();
+      }else if(res==0){
+          layer.msg("更新失败！");
+      }else{
+          layer.msg("添加成功！");
+          window.location.href = "{:url('customer/index','','')}";
+      }
+    });
+    return false;
+  })
+});
+</script>
+{include file="public/foot" /}

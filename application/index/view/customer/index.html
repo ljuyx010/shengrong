@@ -8,27 +8,25 @@
   <div class="admin-content">
     <div class="admin-content-body">
       <div class="am-cf am-padding am-padding-bottom-0">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">项目管理</strong> / <small>{$title}</small></div>
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">客户管理</strong> / <small>{$title}</small></div>
       </div>
 
       <hr>
 
       <div class="am-g">
-      {if condition="$Think.session.uset.type"}
         <div class="am-u-sm-3 am-u-md-6">
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
-              <a href="{:url('project/add')}" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新建</a>
+              <a href="{:url('customer/add')}" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新建</a>
             </div>
           </div>
         </div>
-      {/if}
         <div class="am-u-sm-6 am-u-md-3">
           <div class="am-form-group">
             <select name="zt" data-am-selected="{btnSize: 'sm'}">
-              <option value="0" {if condition="$zt==0"}selected{/if}>进行中</option>
-              <option value="1" {if condition="$zt==1"}selected{/if}>已完成</option>
-              <option value="2" {if condition="$zt==2"}selected{/if}>异常</option>
+              <option value="1" {if condition="$zt==1"}selected{/if}>联系中</option>
+              <option value="2" {if condition="$zt==2"}selected{/if}>已成交</option>
+              <option value="0" {if condition="$zt==0"}selected{/if}>公共库</option>
             </select>
           </div>
         </div>
@@ -48,22 +46,21 @@
             <table class="am-table am-table-striped am-table-hover table-main">
               <thead>
               <tr>
-                <th class="am-hide-sm-only table-id">ID</th><th class="table-title">标题</th><th class="am-hide-sm-only">队长</th><th class="table-author am-hide-sm-only">状态</th><th class="table-date">更新日期</th><th class="table-set">操作</th>
+                <th class="table-title">标题</th><th class="am-hide-sm-only">联系人</th><th class="am-hide-sm-only">联系方式</th><th class="table-author am-hide-sm-only">状态</th><th class="table-date">更新日期</th><th class="table-set">操作</th>
               </tr>
               </thead>
               <tbody>
               {volist name='list' id='v' key='k'}
-              <tr>
-                <td class="am-hide-sm-only">{$k}</td>
+              <tr>                
                 <td>{$v.title|re_substr=###,0,15,false}</td>
-                <td class="am-hide-sm-only">{$v.name}</td>
-                <td class="am-hide-sm-only">{if condition="$v.zt==1"}已完成{elseif condition="$v.zt==2" /}异常{else /}进行中{/if}</td>
+                <td class="am-hide-sm-only">{$v.lxr}</td>
+                <td class="am-hide-sm-only">{$v.lx}</td>
+                <td class="am-hide-sm-only">{if condition="$v.zt==1"}联系中{elseif condition="$v.zt==2" /}已成交{else /}公共{/if}</td>
                 <td>{$v.uptime|date='y/m/d'}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <a href="{:url('project/tail',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs am-icon-slideshare"><span class="am-icon-pencil-square-o"></span> 跟进</a>{if condition="$Think.session.uset.type"}
-                      <a href="{:url('project/edit',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>{/if}
+                      <a href="{:url('customer/edit',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>
                   </div>
                 </td>
               </tr>
@@ -85,12 +82,12 @@
     var $radios = $('select[name=zt]');
     $radios.on('change',function() {
       var id=$(this).val();
-      window.location.href = "{:url('project/index','','')}/zt/"+id;
+      window.location.href = "{:url('customer/index','','')}/zt/"+id;
     });
     $('.search').click(function(){
       var key=$('.key').val();
       if(key){
-        window.location.href = "{:url('project/index',['zt'=>$zt],'')}/key/"+key;
+        window.location.href = "{:url('customer/index',['zt'=>$zt],'')}/key/"+key;
       }else{
         alert('请输入搜索关键字');
       }

@@ -1,0 +1,105 @@
+{include file="public/head" /}
+<div class="am-cf admin-main">
+
+{include file="public/left" /}
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf">
+          <strong class="am-text-primary am-text-lg">项目管理</strong> /
+          <small>跟进记录</small>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-12">
+            <div class="am-panel am-panel-secondary">
+              <div class="am-panel-hd">
+                <h3 class="am-panel-title">{$xm.title}</h3>
+              </div>
+              <div class="am-panel-bd">
+               <table class="am-table">
+                <tr><td>联系人</td><td>{$xm.kh}</td></tr>
+                <tr><td>签约日期</td><td>{$xm.htime|date='Y/m/d'}</td></tr>
+                <tr><td>工期</td><td>{$xm.gq}天</td></tr>
+                <tr><td>队长</td><td>{$dz}</td></tr>
+                <tr><td>团队</td><td>{volist name='cyz' id='c'}{$c.name},{/volist}</td></tr>
+                <tr><td>创建日期</td><td>{$xm.addtime|date='Y/m/d'}</td></tr>
+                <tr>
+                  <td colspan="2">
+                    <textarea lay-verify="required" style="display: none;" name="content" id="content"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><button type="button" lay-filter="add" lay-submit class="am-btn am-btn-primary">提交保存</button></td>
+                </tr>
+               </table>
+              </div>
+            </div>
+            <ul class="am-comments-list am-comments-list-flip">
+              {volist name="list" id="v" key="k"}
+              <li class="am-comment {if condition='$k%2'}am-comment-flip{/if}">
+                <a href="#link-to-user-home">
+                  <img src="__PUBLIC__/i/face.png" alt="" class="am-comment-avatar" width="48" height="48"/>
+                </a>
+
+                <div class="am-comment-main">
+                  <header class="am-comment-hd">
+                    <div class="am-comment-meta">
+                      <a href="#link-to-user" class="am-comment-author">{$v.name}</a>
+                      更新于 <time datetime="{$v.time|date='Y-m-d H:i:s'}">{$v.time|date='Y-m-d H:i:s'}</time>
+                    </div>
+                  </header>
+
+                  <div class="am-comment-bd">
+                    {$v.content}
+                  </div>
+                </div>
+              </li>
+              {/volist}
+            </ul>
+        </div>
+      
+      </div>
+    </div>
+{js href="__PUBLIC__/layui/layui.js"}
+{css href="__PUBLIC__/layui/css/layui.css"}
+<script type="text/javascript">
+layui.use(['form','layer','layedit'], function(){
+  var form = layui.form,
+      layer = parent.layer === undefined ? layui.layer : top.layer,
+      layedit = layui.layedit,
+      $ = layui.jquery;
+
+  layedit.set({
+      uploadImage: {
+          url: "{:url('index/upload')}",
+          type: 'post'
+      }
+  });
+  var index=layedit.build('content'); //建立编辑器
+  //提交表单
+  form.on("submit(add)",function(data){  
+    //同步编辑器内容到textarea
+    layedit.sync(index);
+    $.post("{:url('project/runtail')}",{
+        pid : {$xm.id},  //项目id
+        content : $("#content").val() //文章内容
+    },function(res){
+      if(res==1){
+          layer.msg("更新成功！");
+          //刷新页面
+          location.reload();
+      }else{
+          layer.msg("更新失败！");
+      }
+    });
+    return false;
+  })
+});
+</script>
+{include file="public/foot" /}

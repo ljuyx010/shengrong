@@ -19,7 +19,7 @@ class Project extends Common{
     		$where['Participant']=array('like','%'.session('user.id').'%');
     	}
     	if($key){$where['title']=array('like','%'.$key.'%');}
-    	$list=db('project')->alias('p')->join('admin a','p.dz=a.id')->field('p.*,a.name')->where($where)->order('addtime desc')->paginate(15);
+    	$list=db('project')->alias('p')->join('admin a','p.dz=a.id')->field('p.*,a.name')->where($where)->whereOr('dz',session('user.id'))->order('addtime desc')->paginate(15);
     	$this->assign('title',$title);
     	$this->assign('zt',$z);
     	$this->assign('list', $list);
@@ -56,5 +56,29 @@ class Project extends Common{
     	$this->assign('u',$user);
     	$this->assign('p',$p);
     	return $this->fetch('add');
+    }
+
+    public function tail(){
+        $id=input('id');
+        $check=db('project')->where('id',$id)->where('dz',session('user.id'))->whereOr('Participant','like','%'.session('user.id').'%')->find();
+        if(!session('user.type') && !$check){$this->error('没有权限');}
+        $rs=db('project')->where('id',$id)->find();
+        $dz=db('admin')->where('id',$rs['dz'])->value('name');
+        $cyz=db('admin')->where('id','in',explode(',',$rs['Participant']))->column('name');
+        $list=db('pcon')->alias('p')->join('admin a','p.uid=a.id')->field('p.*,a.name')->where('pid',$id)->order('time desc')->select();
+        $this->assign('dz',$dz);
+        $this->assign('cyz',$cyz);
+        $this->assign('xm',$rs);
+        $this->assign('list',$list);
+        return $this->fetch();
+    }
+
+    public function runtail(){
+        $data=input('');
+        $data['uid']=session('user.id');
+        $data['time']=time();
+        $rs=db('pcon')->insert($data);
+        return $rs;
+        if($rs){db('project')->where('id',input('pid'))->setField('uptime', time());}
     }
 }
