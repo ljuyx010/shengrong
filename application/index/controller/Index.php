@@ -4,6 +4,21 @@ namespace app\index\controller;
 class Index extends Common{
 
     public function index(){
+		$y=date('Y');
+		$m=date('m');
+		$yc=strtotime($y.'-'.$m.'-1 00:00');
+		$where=array('htime'=>array('between time',[$yc,time()]));
+		$where2=array('addtime'=>array('between time',[$yc,time()]));
+		if(!session('user.type')){
+			$where['dz|Participant']=array("like","%".session('user.id')."%");
+			$where2['uid']=session('user.id');
+		}
+		$byxm=db('project')->where($where)->where('zt','<>',2)->value('count(id)');
+		$bywc=db('project')->where($where)->where('zt',1)->value('count(id)');
+		$bykh=db('customer')->where($where2)->where('zt',1)->value('count(id)');
+		$bycj=db('customer')->where($where2)->where('zt',2)->value('count(id)');
+		$tj=array('zxm'=>$byxm,'wc'=>$bywc,'yx'=>$bykh,'cj'=>$bycj);
+		$this->assign('tj',$tj);
         return $this->fetch();
     }
 
