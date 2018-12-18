@@ -33,12 +33,15 @@ class Customer extends Common{
 
     public function edit(){
     	$id=input('id');
-        $check=db('customer')->alias('c')->join('admin a','c.uid=a.id')->field('c.*,a.name')->where('id',$id)->where('uid',session('user.id'))->whereOr('zt',0)->find();
-        if(!session('user.type') && !$check){$this->error('没有权限');}
+        $where=array('c.id'=>$id);
+        if(!session('user.type')){$where['uid']=session('user.id');}
+        $check=db('customer')->alias('c')->join('admin a','c.uid=a.id')->field('c.*,a.name')->where($where)->whereOr('c.zt',0)->find();
+        if(!$check){$this->error('没有权限');}
         $list=db('ccon')->alias('c')->join('admin a','c.uid=a.id')->field('c.*,a.name')->where('cid',$id)->order('time desc')->select();
-        $this->assign('xm',$rs);
+        $this->assign('xm',$check);
+        $this->assign('title','客户跟进');
         $this->assign('list',$list);
-        return $this->fetch();
+        return $this->fetch('add');
     }
 
     public function runadd(){
@@ -61,7 +64,7 @@ class Customer extends Common{
     		);
     		db('customer')->update($data);
     		$rs=db('ccon')->insert($data2);
-    		if($rs){return 'ok'}else{return 0;}
+    		if($rs){return 'ok';}else{return 0;}
     	}else{
     		$data=array(
     			'title'=>input('title'),

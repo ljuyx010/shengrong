@@ -14,7 +14,7 @@
       <hr>
 
       <div class="am-g">
-      {if condition="$Think.session.uset.type"}
+      {if condition="$Think.session.user.type"}
         <div class="am-u-sm-3 am-u-md-6">
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
@@ -58,13 +58,14 @@
                 <td>{$v.title|re_substr=###,0,15,false}</td>
                 <td class="am-hide-sm-only">{$v.name}</td>
                 <td class="am-hide-sm-only">{if condition="$v.zt==1"}已完成{elseif condition="$v.zt==2" /}异常{else /}进行中{/if}</td>
-                <td>{$v.uptime|date='y/m/d'}</td>
+                <td>{$v.uptime|date='y/m/d',###}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <a href="{:url('project/tail',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs am-icon-slideshare"><span class="am-icon-pencil-square-o"></span> 跟进</a>{if condition="$Think.session.uset.type"}
-                      <a href="{:url('project/edit',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>{/if}
-                  </div>
+                      <a href="{:url('project/tail',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs"><span class="am-icon-slideshare"></span> 跟进</a></div>
+                      {if condition="$Think.session.user.type"}
+                    <div class="am-btn-group am-btn-group-xs">
+                      <a href="{:url('project/edit',['id'=>$v.id])}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a></div>{/if}
                 </td>
               </tr>
               {/volist} 

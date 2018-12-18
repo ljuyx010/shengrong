@@ -56,7 +56,7 @@
                 <td class="am-hide-sm-only">{$v.lxr}</td>
                 <td class="am-hide-sm-only">{$v.lx}</td>
                 <td class="am-hide-sm-only">{if condition="$v.zt==1"}联系中{elseif condition="$v.zt==2" /}已成交{else /}公共{/if}</td>
-                <td>{$v.uptime|date='y/m/d'}</td>
+                <td>{$v.uptime|date='y/m/d',###}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">

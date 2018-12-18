@@ -41,7 +41,7 @@
             签约日期
           </div>
           <div class="am-u-sm-8 am-u-md-4">
-            <input type="text" name="htime" class="am-input-sm am-form-field" value="{$p.htime|date='Y-m-d',###}" data-am-datepicker="{theme: 'success'}" readonly/>
+            <input type="text" name="htime" class="am-input-sm am-form-field" value="{$p.htime|default=time()|date='Y-m-d',###}" data-am-datepicker="{theme: 'success'}" readonly/>
           </div>
           <div class="am-hide-sm-only am-u-md-6">合同签订日期</div>
         </div>
@@ -88,7 +88,7 @@
           <div class="am-u-sm-3 am-u-md-2 am-text-right">
             项目状态
           </div>
-          <div class="am-u-sm-8 am-u-md-4">
+          <div class="am-u-sm-8 am-u-md-4 am-u-end col-end">
             <label class="am-radio-inline">
               <input type="radio"  value="0" name="zt" {eq name="p.zt" value="0"}checked{/eq}> 进行中
             </label>

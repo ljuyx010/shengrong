@@ -45,4 +45,23 @@ class User extends Common{
     	}
     	if($rs){$this->success('保存成功','user/index');}else{$this->error('保存失败');}
     }
+
+    public function modify(){
+        $id=input('id');
+        if($id){
+            if(input('password')==input('password2')){
+                $pas=MD5(MD5(input('password')));
+                $rs=db('admin')->where('id',session('user.id'))->setField('password', $pas);
+                if($rs){
+                    $this->success('密码修改成功','index/index');
+                }else{
+                    $this->error('密码修改失败');
+                }
+            }else{
+                $this->error('两次密码不一致！');
+            }
+        }else{
+            return $this->fetch();
+        }        
+    }
 }

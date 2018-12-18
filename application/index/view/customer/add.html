@@ -30,12 +30,12 @@
                 <tr><td>地址</td><td><input type="text" name="adr" class="layui-input adr" placeholder="客户地址" value="{$xm.adr}"></td></td></tr>
                 {if condition="$xm"}
                 <tr><td>创建人</td><td>{$xm.name}</td></tr>
-                <tr><td>创建日期</td><td>{$xm.addtime|date='Y/m/d'}</td></tr>
+                <tr><td>创建日期</td><td>{$xm.addtime|date='Y/m/d',###}</td></tr>
                 <tr><td>状态</td><td>
                   <select name="zt" data-am-selected="{btnSize: 'sm'}">
                     <option value="1" {if condition="$xm.zt==1"}selected{/if}>重点</option>
                     <option value="2" {if condition="$xm.zt==2"}selected{/if}>已成交</option>
-                    <option value="0" {if condition="$xm.zt==0"}selected{/if}>公共</option>
+                    <option value="0" {if condition="$xm.zt==0"}selected{/if}>作废</option>
                   </select></td>
                 </tr>{if condition="$xm.zt==0"}
                 <tr><td>转移</td><td><input type="checkbox" name="zy" title="转到重点客户" value="zy" lay-skin="primary"> </td></tr>{/if}
@@ -62,7 +62,7 @@
                   <header class="am-comment-hd">
                     <div class="am-comment-meta">
                       <a href="#link-to-user" class="am-comment-author">{$v.name}</a>
-                      更新于 <time datetime="{$v.time|date='Y-m-d H:i:s'}">{$v.time|date='Y-m-d H:i:s'}</time>
+                      更新于 <time datetime="{$v.time|date='Y-m-d H:i:s'}">{$v.time|date='Y-m-d H:i:s',###}</time>
                     </div>
                   </header>
 

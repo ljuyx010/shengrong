@@ -7,17 +7,20 @@ class Index extends Common{
 		$y=date('Y');
 		$m=date('m');
 		$yc=strtotime($y.'-'.$m.'-1 00:00');
-		$where=array('htime'=>array('between time',[$yc,time()]));
+		$query=db('project');
+		$query=$query->where('htime','between time',[$yc,time()]);
 		$where2=array('addtime'=>array('between time',[$yc,time()]));
 		if(!session('user.type')){
-			$where['dz|Participant']=array("like","%".session('user.id')."%");
+			$query=$query->whereOr('dz', session('user.id'))->whereor('Participant','like','%'.session('user.id').'%');
 			$where2['uid']=session('user.id');
 		}
-		$byxm=db('project')->where($where)->where('zt','<>',2)->value('count(id)');
-		$bywc=db('project')->where($where)->where('zt',1)->value('count(id)');
+		$byxm=$query->where('zt','<>',2)->value('count(id)');
+		$bywc=$query->where('zt',1)->value('count(id)');
 		$bykh=db('customer')->where($where2)->where('zt',1)->value('count(id)');
 		$bycj=db('customer')->where($where2)->where('zt',2)->value('count(id)');
+		$list=db('logs')->alias('l')->join('admin a','l.uid=a.id')->field('l.*,a.name')->where('uid',session('user.id'))->where('l.type',0)->order('id desc')->find();
 		$tj=array('zxm'=>$byxm,'wc'=>$bywc,'yx'=>$bykh,'cj'=>$bycj);
+		$this->assign('list',$list);
 		$this->assign('tj',$tj);
         return $this->fetch();
     }

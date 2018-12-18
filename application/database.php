@@ -15,14 +15,14 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'shengrongoa',
-    //'database'        => 'myshengrongzhua',
+    //'database'        => 'shengrongoa',
+    'database'        => 'myshengrongzhua',
     // 用户名
-    'username'        => 'root',
-    //'username'        => 'myshengrongzhua',
+    //'username'        => 'root',
+    'username'        => 'myshengrongzhua',
     // 密码
-    'password'        => 'root',
-    //'password'        => 'saw7vMvsc2rlsWcuof5',
+    //'password'        => 'root',
+    'password'        => 'saw7vMvsc2rlsWcuof5',
     // 端口
     'hostport'        => '',
     // 连接dsn

@@ -1,0 +1,48 @@
+{include file="public/head" /}
+<div class="am-cf admin-main">
+{include file="public/left" /}
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">个人资料</strong> / <small>修改密码</small></div>
+      </div>
+
+      <hr/>
+
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        
+        </div>
+
+        <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+          <form class="am-form am-form-horizontal" method="post" action="{:url('user/modify')}">
+
+            <div class="am-form-group">
+              <label for="user-phone" class="am-u-sm-2 am-form-label">新密码</label>
+              <div class="am-u-sm-9">
+                <input type="password" name="password" id="user-pas" minlength="6" placeholder="输入密码">
+                <small>尽量复杂些，你懂的...</small>
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <label for="user-phone" class="am-u-sm-2 am-form-label">再次确认</label>
+              <div class="am-u-sm-9">
+                <input type="password" name="password2" id="user-pas2" minlength="6" placeholder="输入密码">
+                <small>确认密码和新密码一致</small>
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <div class="am-u-sm-9 am-u-sm-push-3">
+                <input type="hidden" name="id" value="1">
+                <button type="submite" class="am-btn am-btn-primary">保存修改</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+{include file="public/foot" /}

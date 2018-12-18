@@ -34,4 +34,10 @@ class Login extends Controller{
 	    	}
     	}
     }
+
+    public function logout(){
+		session('user',null);
+		session('[destroy]');
+		$this->redirect('login/index');
+    }
 }

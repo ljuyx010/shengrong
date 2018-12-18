@@ -36,13 +36,13 @@ class Project extends Common{
     	$data=input('');
     	if(input('id')){
     		$data['htime']=input('htime')?strtotime(input('htime')):time();
-    		$data['Participant']=implode(',',input('Participant'));
+    		$data['Participant']=implode(',',input('Participant/a'));
     		$rs=db('project')->update($data);
     	}else{
     		$data['htime']=input('htime')?strtotime(input('htime')):time();
 	    	$data['addtime']=time();
 	    	$data['uptime']=time();
-	    	$data['Participant']=implode(',',input('Participant'));
+	    	$data['Participant']=implode(',',input('Participant/a'));
 	    	$rs=db('project')->insert($data);
     	}
     	if($rs){$this->success('保存成功','project/index');}else{$this->error('保存失败');}

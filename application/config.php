@@ -138,6 +138,8 @@ return [
         'taglib_begin' => '{',
         // 标签库标签结束标记
         'taglib_end'   => '}',
+        // 绑定内置标签库
+        'taglib_build_in'    =>    'cx,\app\common\taglib\Li'
     ],
 
     // 视图输出字符串内容替换
