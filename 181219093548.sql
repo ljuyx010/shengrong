@@ -2,7 +2,7 @@
 MySQL Backup
 Source Server Version: 5.6.14
 Source Database: myshengrongzhua
-Date: 2018/12/18 17:52:26
+Date: 2018/12/19 09:35:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,8 +61,9 @@ CREATE TABLE `dp_logs` (
   `content` text NOT NULL,
   `time` int(10) NOT NULL COMMENT '更新日期',
   `type` int(2) NOT NULL DEFAULT '0' COMMENT '0日志1请假2报销3公告',
+  `to` int(5) DEFAULT NULL COMMENT '发送到的uid',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `dp_pcon`
@@ -101,6 +102,6 @@ CREATE TABLE `dp_project` (
 INSERT INTO `dp_admin` VALUES ('1','dpwl','fb1ca64b97abe2f25fb5b47318abc093','大鹏网络','1','0'), ('2','ljuyx','14e1b600b1fd579f47433b88e8d85291','李俊','0','0');
 INSERT INTO `dp_ccon` VALUES ('1','2','1','准备做一个OA办公系统','1545114688');
 INSERT INTO `dp_customer` VALUES ('1','晟荣装饰有限公司','电话：18672996571','孙总','','1','2','1545114688','1545114688');
-INSERT INTO `dp_logs` VALUES ('1','2','日志测试一下下','1545118322','0'), ('2','2','请假测试','1545118356','1'), ('3','2','报销测试','1545118390','2'), ('4','1','幸福是奋斗出来的','1545118538','3');
+INSERT INTO `dp_logs` VALUES ('1','2','日志测试一下下','1545118322','0',NULL), ('2','2','请假测试','1545118356','1',NULL), ('3','2','报销测试','1545118390','2',NULL), ('4','1','幸福是奋斗出来的','1545118538','3',NULL), ('5','1','测试跨账号记录','1545182352','0','2');
 INSERT INTO `dp_pcon` VALUES ('1','1','2','1545114400','项目已经基本完成');
 INSERT INTO `dp_project` VALUES ('1','晟荣OA系统制作','姓名:孙总 , 电话：18672996571','1543334400','25','1','2','1545113380','0','1545113380');

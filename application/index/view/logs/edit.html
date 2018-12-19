@@ -51,7 +51,7 @@
                 <tr><td>查看员工</td>
                 <td><select name="dz" data-am-selected>
                   {volist name='u' id='v'}
-                  <option value="{$v.id}" {eq name="uid" value="$v.id" }selected{/eq}>{$v.name}</option>
+                  <option value="{$v.id}" {eq name="nid" value="$v.id" }selected{/eq}>{$v.name}</option>
                   {/volist}
                 </select></td></tr>{/if}
                 <tr><td>记录范围</td><td>
@@ -78,8 +78,8 @@
                     </div>
                   </header>
 
-                  <div class="am-comment-bd">
-                    {$v.content}
+                  <div class="am-comment-bd">{if condition="$v.to && $nid==$uid"}
+                    <a href="javascript:;" style="color: #0e90d2;">@{$v.ton}</a>{/if} {$v.content}
                   </div>
                 </div>
               </li>
@@ -111,6 +111,7 @@ layui.use(['form','layer','layedit'], function(){
     layedit.sync(index);
     $.post("{:url('logs/runadd')}",{
         cid: {$t},  //项目类型
+        uid: {if condition="$nid && $nid!=$uid"}{$nid}{else /}''{/if},
         content : $("#content").val() //文章内容
     },function(res){
       if(res==1){

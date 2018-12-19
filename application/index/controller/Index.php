@@ -18,7 +18,7 @@ class Index extends Common{
 		$bywc=$query->where('zt',1)->value('count(id)');
 		$bykh=db('customer')->where($where2)->where('zt',1)->value('count(id)');
 		$bycj=db('customer')->where($where2)->where('zt',2)->value('count(id)');
-		$list=db('logs')->alias('l')->join('admin a','l.uid=a.id')->field('l.*,a.name')->where('uid',session('user.id'))->where('l.type',0)->order('id desc')->find();
+		$list=db('logs')->alias('l')->join('admin a','l.uid=a.id')->field('l.*,a.name')->where('uid',session('user.id'))->where('to','')->where('l.type',0)->order('id desc')->find();
 		$tj=array('zxm'=>$byxm,'wc'=>$bywc,'yx'=>$bykh,'cj'=>$bycj);
 		$this->assign('list',$list);
 		$this->assign('tj',$tj);
