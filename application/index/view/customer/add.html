@@ -8,7 +8,7 @@
     <div class="admin-content-body">
       <div class="am-cf am-padding am-padding-bottom-0">
         <div class="am-fl am-cf">
-          <strong class="am-text-primary am-text-lg">客户管理</strong> /
+          <strong class="am-text-primary am-text-lg"><a href="{:url('customer/index')}">客户管理</a></strong> /
           <small>{$title}</small>
         </div>
       </div>
@@ -122,6 +122,11 @@ layui.use(['form','layer','layedit'], function(){
     });
     return false;
   })
+  {if condition="is_mobile()"}
+  $('.layedit-tool-face').click(function(){
+     $('.layui-util-face').css({"width":"100%","left":"0","margin-left":"0"});
+  });
+  {/if}
 });
 </script>
 {include file="public/foot" /}

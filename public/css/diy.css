@@ -3,4 +3,7 @@
 	.admin-content-list li{border:0;}
 	.admin-content-list li:nth-child(1),.admin-content-list li:nth-child(3){border-right:1px solid #e9ecf1;}
 	.admin-content-list li:nth-child(1),.admin-content-list li:nth-child(2){border-bottom:1px solid #e9ecf1;}
+	.layui-util-face{left: 0;margin-left: 0;}
 }
+img{max-width: 100%;}
+.am-text-primary a{color: #0e90d2;}

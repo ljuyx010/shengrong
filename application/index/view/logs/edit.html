@@ -8,7 +8,7 @@
     <div class="admin-content-body">
       <div class="am-cf am-padding am-padding-bottom-0">
         <div class="am-fl am-cf">
-          <strong class="am-text-primary am-text-lg">日志记录</strong> /
+          <strong class="am-text-primary am-text-lg"><a href="{:url('index/index')}">日志记录</a></strong> /
           <small>
             {switch name="t"}
                 {case value="1"}请假{/case}
@@ -24,23 +24,6 @@
 
       <div class="am-g">
         <div class="am-u-sm-12 am-u-md-12">
-            <div class="am-panel am-panel-secondary">
-              <div class="am-panel-hd">
-                <h3 class="am-panel-title">添加新记录</h3>
-              </div>
-              <div class="am-panel-bd">
-               <table class="am-table">
-                <tr>
-                  <td colspan="2">
-                    <textarea lay-verify="required" style="display: none;" name="content" id="content"></textarea>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2"><button type="button" lay-filter="add" lay-submit class="am-btn am-btn-primary">保存</button></td>
-                </tr>
-               </table>
-              </div>
-            </div>
             <div class="am-panel am-panel-secondary">
               <div class="am-panel-hd">
                 <h3 class="am-panel-title">筛选记录</h3>
@@ -63,6 +46,25 @@
                </table>
               </div>
             </div>
+            <!--end sx-->
+            <div class="am-panel am-panel-secondary">
+              <div class="am-panel-hd">
+                <h3 class="am-panel-title">添加新记录</h3>
+              </div>
+              <div class="am-panel-bd">
+               <table class="am-table">
+                <tr>
+                  <td colspan="2">
+                    <textarea lay-verify="required" style="display: none;" name="content" id="content"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><button type="button" lay-filter="add" lay-submit class="am-btn am-btn-primary">保存</button></td>
+                </tr>
+               </table>
+              </div>
+            </div>
+            
             <ul class="am-comments-list am-comments-list-flip">
               {volist name="list" id="v"}
               <li class="am-comment {if condition='$v.uid!=$Think.session.user.id'}am-comment-flip{/if}">
@@ -78,7 +80,7 @@
                     </div>
                   </header>
 
-                  <div class="am-comment-bd">{if condition="$v.to && $nid==$uid"}
+                  <div class="am-comment-bd">{if condition="$v.to && $nid==$Think.session.user.id"}
                     <a href="javascript:;" style="color: #0e90d2;">@{$v.ton}</a>{/if} {$v.content}
                   </div>
                 </div>
@@ -111,7 +113,7 @@ layui.use(['form','layer','layedit'], function(){
     layedit.sync(index);
     $.post("{:url('logs/runadd')}",{
         cid: {$t},  //项目类型
-        uid: {if condition="$nid && $nid!=$uid"}{$nid}{else /}''{/if},
+        uid: {if condition="$nid && $nid!=$Think.session.user.id"}{$nid}{else /}''{/if},
         content : $("#content").val() //文章内容
     },function(res){
       if(res==1){
@@ -128,6 +130,11 @@ layui.use(['form','layer','layedit'], function(){
     var uid=$('select[name=dz]').val(),time=$('input[name=time]').val();
     window.location.href = "{:url('logs/edit','','')}/uid/"+uid+"/time/"+time;
   })
+  {if condition="is_mobile()"}
+  $('.layedit-tool-face').click(function(){
+     $('.layui-util-face').css({"width":"100%","left":"0","margin-left":"0"});
+  });
+  {/if}
 });
 </script>
 {include file="public/foot" /}

@@ -45,7 +45,7 @@
       <br>
       <label for="password">验证码:</label>
       <div class="am-cf">      
-      <input type="text" name="code" class="am-fl" style="width:50%;" id="code" value="">
+      <input type="number" name="code" class="am-fl" minlength="4" style="width:50%;" id="code" value="">
       <img id="verfy" class="am-fr" style="height: 37px;" onclick="refresh()" src="{:captcha_src()}">
       </div>
       <br>
@@ -62,6 +62,8 @@
     <p>Copyright © 2018 <a href="http://www.dpwl.net" target="_blank">Dpwl</a>版权所有.</p>
   </div>
 </div>
+<script src="__PUBLIC__/js/amazeui.min.js"></script>
+<script src="__PUBLIC__/js/app.js"></script>
 <script>
 function refresh(){
   var ts= Date.parse(new Date())/1000;
