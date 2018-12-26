@@ -19,7 +19,7 @@ class Project extends Common{
     		$where['Participant']=array('like','%'.session('user.id').'%');
     	}
     	if($key){$where['title']=array('like','%'.$key.'%');}
-    	$list=db('project')->alias('p')->join('admin a','p.dz=a.id')->field('p.*,a.name')->where($where)->whereOr('dz',session('user.id'))->order('addtime desc')->paginate(15);
+    	$list=db('project')->alias('p')->join('admin a','p.dz=a.id')->field('p.*,a.name')->where($where)->whereOr('dz',session('user.id'))->order('addtime desc')->paginate(1);
     	$this->assign('title',$title);
     	$this->assign('zt',$z);
     	$this->assign('list', $list);

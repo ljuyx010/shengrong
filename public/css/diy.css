@@ -7,3 +7,31 @@
 }
 img{max-width: 100%;}
 .am-text-primary a{color: #0e90d2;}
+.pagination {
+    padding-left: 0;
+    margin: 1.5rem 0;
+    list-style: none;
+    color: #999;
+    text-align: left;
+}
+.pagination li {
+    display: inline-block;
+}
+.pagination li a, .pagination li span {
+    display: block;
+    padding: .5em 1em;
+    text-decoration: none;
+    line-height: 1.2;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+.pagination .active a{
+    z-index: 2;
+    color: #fff;
+    background-color: #0e90d2;
+    border-color: #0e90d2;
+    cursor: default;
+}
