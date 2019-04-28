@@ -75,7 +75,7 @@
             团队成员
           </div>
           <div class="am-u-sm-8 am-u-md-4">
-            <select name="Participant[]" multiple data-am-selected>
+            <select name="Participant[]" minchecked="1" multiple data-am-selected>
               {volist name='u' id='v'}
               <option value="{$v.id}" {if condition="in_array($v.id,$p.Participant)"}selected{/if}>{$v.name}</option>
               {/volist}
@@ -98,7 +98,7 @@
             <label class="am-radio-inline">
               <input type="radio" value="2" name="zt" {eq name="p.zt" value="2"}checked{/eq}> 异常
             </label>
-            <input type="hidden" value="{$v.id}" name="id"></input>
+            <input type="hidden" value="{$p.id}" name="id"></input>
           </div>
         </div>
         {/if}

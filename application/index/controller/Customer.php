@@ -33,9 +33,11 @@ class Customer extends Common{
 
     public function edit(){
     	$id=input('id');
-        $where=array('c.id'=>$id);
-        if(!session('user.type')){$where['uid']=session('user.id');}
-        $check=db('customer')->alias('c')->join('admin a','c.uid=a.id')->field('c.*,a.name')->where($where)->whereOr('c.zt',0)->find();
+        $where=db('customer')->alias('c')->join('admin a','c.uid=a.id')->field('c.*,a.name')->where('c.id',$id);
+        if(!session('user.type')){$where=$where->where(function ($query) {
+			$query->where('uid',session('user.id'))->whereOr('c.zt',0);
+		});}
+        $check=$where->find();
         if(!$check){$this->error('没有权限');}
         $list=db('ccon')->alias('c')->join('admin a','c.uid=a.id')->field('c.*,a.name')->where('cid',$id)->order('time desc')->select();
         $this->assign('xm',$check);

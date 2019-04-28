@@ -31,14 +31,17 @@
                 {if condition="$xm"}
                 <tr><td>创建人</td><td>{$xm.name}</td></tr>
                 <tr><td>创建日期</td><td>{$xm.addtime|date='Y/m/d',###}</td></tr>
-                <tr><td>状态</td><td>
-                  <select name="zt" data-am-selected="{btnSize: 'sm'}">
+				{if condition="$xm.zt==0"}
+                <tr><td>转移</td><td><input type="checkbox" name="zy" value="zy" lay-skin="primary">转到重点客户 </td></tr>
+				{else /}
+				<tr><td>状态</td><td>
+                  <select name="zt">
                     <option value="1" {if condition="$xm.zt==1"}selected{/if}>重点</option>
                     <option value="2" {if condition="$xm.zt==2"}selected{/if}>已成交</option>
                     <option value="0" {if condition="$xm.zt==0"}selected{/if}>作废</option>
                   </select></td>
-                </tr>{if condition="$xm.zt==0"}
-                <tr><td>转移</td><td><input type="checkbox" name="zy" title="转到重点客户" value="zy" lay-skin="primary"> </td></tr>{/if}
+                </tr>
+				{/if}
                 {/if}
                 <tr>
                   <td colspan="2">
@@ -80,6 +83,12 @@
 {js href="__PUBLIC__/layui/layui.js"}
 {css href="__PUBLIC__/layui/css/layui.css"}
 <script type="text/javascript">
+$(function() {
+	if (!$.AMUI.support.mutationobserver) {
+      $selected.trigger('changed.selected.amui');
+    }
+});
+
 layui.use(['form','layer','layedit'], function(){
   var form = layui.form,
       layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -94,7 +103,7 @@ layui.use(['form','layer','layedit'], function(){
   });
   var index=layedit.build('content'); //建立编辑器
   //提交表单
-  form.on("submit(add)",function(data){  
+  form.on("submit(add)",function(data){
     //同步编辑器内容到textarea
     layedit.sync(index);
     $.post("{:url('customer/runadd')}",{
@@ -103,7 +112,7 @@ layui.use(['form','layer','layedit'], function(){
         lx:$(".lx").val(),
         adr:$(".adr").val(),
         {if condition="$xm"}
-        zt: $("select[name=zt]:selected").val(),
+        zt: $("select[name=zt]").val(),
         zy: $("input[name=zy]:checked").val(),
         cid: {$xm.id},  //项目id
         {/if}
